@@ -224,9 +224,6 @@
   
     [defaults setObject:YTMUltimateDict forKey:@"YTMUltimate"];  
 }
-  
-    [defaults setObject:YTMUltimateDict forKey:@"YTMUltimate"];  
-}
 
 
     NSDictionary *data = settingsData[sender.tag];
