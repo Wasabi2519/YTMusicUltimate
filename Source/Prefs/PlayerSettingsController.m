@@ -29,16 +29,16 @@
     return 4;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 7;
-    } if (section == 2) {
-        return 3;
-    } if (section == 3) {
-        return 2;
-    } else {
-        return 1;
-    }
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {  
+    if (section == 0) {  
+        return 8;  // 7から8に変更  
+    } if (section == 2) {  
+        return 3;  
+    } if (section == 3) {  
+        return 2;  
+    } else {  
+        return 1;  
+    }  
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
@@ -61,15 +61,15 @@
     if (indexPath.section == 0) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"boolsCell"];
         
-        NSArray *settingsData = @[
+        NSArray *settingsData = @[  
+            @{@"title": LOC(@"DOWNLOAD_AUDIO"), @"desc": LOC(@"DOWNLOAD_AUDIO_DESC"), @"key": @"downloadAudio"},  
+            @{@"title": LOC(@"DOWNLOAD_COVER"), @"desc": LOC(@"DOWNLOAD_COVER_DESC"), @"key": @"downloadCoverImage"},  
+            @{@"title": LOC(@"PLAYBACK_RATE_BUTTON"), @"desc": LOC(@"PLAYBACK_RATE_BUTTON_DESC"), @"key": @"playbackRateButton"},  
+            @{@"title": LOC(@"SELECTABLE_LYRICS"), @"desc": LOC(@"SELECTABLE_LYRICS_DESC"), @"key": @"selectableLyrics"},  
+            @{@"title": LOC(@"VOLBAR"), @"desc": LOC(@"VOLBAR_DESC"), @"key": @"volBar"},  
             @{@"title": LOC(@"EQUALIZER"), @"desc": LOC(@"EQUALIZER_DESC"), @"key": @"equalizerEnabled"},  
-            @{@"title": LOC(@"DOWNLOAD_AUDIO"), @"desc": LOC(@"DOWNLOAD_AUDIO_DESC"), @"key": @"downloadAudio"},
-            @{@"title": LOC(@"DOWNLOAD_COVER"), @"desc": LOC(@"DOWNLOAD_COVER_DESC"), @"key": @"downloadCoverImage"},
-            @{@"title": LOC(@"PLAYBACK_RATE_BUTTON"), @"desc": LOC(@"PLAYBACK_RATE_BUTTON_DESC"), @"key": @"playbackRateButton"},
-            @{@"title": LOC(@"SELECTABLE_LYRICS"), @"desc": LOC(@"SELECTABLE_LYRICS_DESC"), @"key": @"selectableLyrics"},
-            @{@"title": LOC(@"VOLBAR"), @"desc": LOC(@"VOLBAR_DESC"), @"key": @"volBar"},
-            @{@"title": LOC(@"NO_AUTORADIO"), @"desc": LOC(@"NO_AUTORADIO_DESC"), @"key": @"disableAutoRadio"},
-            @{@"title": LOC(@"SKIP_CONTENT_WARNING"), @"desc": LOC(@"SKIP_CONTENT_WARNING_DESC"), @"key": @"skipWarning"}
+            @{@"title": LOC(@"NO_AUTORADIO"), @"desc": LOC(@"NO_AUTORADIO_DESC"), @"key": @"disableAutoRadio"},  
+            @{@"title": LOC(@"SKIP_CONTENT_WARNING"), @"desc": LOC(@"SKIP_CONTENT_WARNING_DESC"), @"key": @"skipWarning"}  
         ];
 
         NSDictionary *data = settingsData[indexPath.row];
@@ -204,16 +204,27 @@
     return NO;
 }
 
-- (void)toggleSwitch:(UISwitch *)sender {
-    NSArray *settingsData = @[
-        @{@"key": @"downloadAudio"},
-        @{@"key": @"downloadCoverImage"},
-        @{@"key": @"playbackRateButton"},
-        @{@"key": @"selectableLyrics"},
-        @{@"key": @"volBar"},
-        @{@"key": @"disableAutoRadio"},
-        @{@"key": @"skipWarning"},
-    ];
+- (void)toggleSwitch:(UISwitch *)sender {  
+    NSArray *settingsData = @[          @{@"key": @"downloadAudio"},          @{@"key": @"downloadCoverImage"},          @{@"key": @"playbackRateButton"},          @{@"key": @"selectableLyrics"},          @{@"key": @"volBar"},          @{@"key": @"equalizerEnabled"},          @{@"key": @"disableAutoRadio"},          @{@"key": @"skipWarning"},      ];  
+  
+    NSDictionary *data = settingsData[sender.tag];  
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];  
+    NSMutableDictionary *YTMUltimateDict = [NSMutableDictionary dictionaryWithDictionary:[defaults dictionaryForKey:@"YTMUltimate"]];  
+  
+    [YTMUltimateDict setObject:@([sender isOn]) forKey:data[@"key"]];  
+  
+    // イコライザーを有効にする場合、デフォルト設定を初期化  
+    if ([data[@"key"] isEqualToString:@"equalizerEnabled"] && [sender isOn]) {  
+        NSDictionary *defaultEQSettings = @{  
+            @0: @0, @1: @0, @2: @0, @3: @0, @4: @0,  
+            @5: @0, @6: @0, @7: @0, @8: @0, @9: @0  
+        };  
+        [YTMUltimateDict setObject:defaultEQSettings forKey:@"equalizerBands"];  
+    }  
+  
+    [defaults setObject:YTMUltimateDict forKey:@"YTMUltimate"];  
+}
+
 
     NSDictionary *data = settingsData[sender.tag];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
