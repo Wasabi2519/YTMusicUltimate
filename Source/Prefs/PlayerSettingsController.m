@@ -62,6 +62,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"boolsCell"];
         
         NSArray *settingsData = @[
+            @{@"title": LOC(@"EQUALIZER"), @"desc": LOC(@"EQUALIZER_DESC"), @"key": @"equalizerEnabled"},  
             @{@"title": LOC(@"DOWNLOAD_AUDIO"), @"desc": LOC(@"DOWNLOAD_AUDIO_DESC"), @"key": @"downloadAudio"},
             @{@"title": LOC(@"DOWNLOAD_COVER"), @"desc": LOC(@"DOWNLOAD_COVER_DESC"), @"key": @"downloadCoverImage"},
             @{@"title": LOC(@"PLAYBACK_RATE_BUTTON"), @"desc": LOC(@"PLAYBACK_RATE_BUTTON_DESC"), @"key": @"playbackRateButton"},
