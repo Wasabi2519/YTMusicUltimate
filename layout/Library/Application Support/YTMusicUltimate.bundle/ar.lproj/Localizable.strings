@@ -22,6 +22,14 @@
 "SELECTABLE_LYRICS_DESC" = "تمكين تحديد كلمات الاغنية";
 "VOLBAR" = "شريط الصوت";
 "VOLBAR_DESC" = "يضيف شريط الصوت إلى المشغل";
+"EQUALIZER" = "Equalizer";  
+"EQUALIZER_DESC" = "Enable 10-band equalizer with presets";  
+"FLAT" = "Flat";  
+"ROCK" = "Rock";  
+"POP" = "Pop";  
+"JAZZ" = "Jazz";  
+"CLASSICAL" = "Classical";  
+
 "NO_AUTORADIO" = "تعطيل الراديو";
 "NO_AUTORADIO_DESC" = "تعطيل ميزة التشغيل اللانهائي للموسيقي";
 "SKIP_CONTENT_WARNING" = "تخطي تحذيرات المحتوي";
